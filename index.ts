@@ -1,7 +1,11 @@
 import { Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
 
-const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN || "");
+const token = process.env["TELEGRAM_BOT_TOKEN"];
+if (!token) {
+  throw new Error("TELEGRAM_BOT_TOKEN is not defined");
+}
+const bot = new Telegraf(token);
 bot.start((ctx) => ctx.reply("Welcome"));
 bot.help((ctx) => ctx.reply("Send me a sticker"));
 bot.on(message("sticker"), (ctx) => ctx.reply("👍"));
