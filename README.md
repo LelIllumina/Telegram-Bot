@@ -1,4 +1,4 @@
-# telegam-bot
+# AI Hakeem Lukman Telegraf Bot
 
 To install dependencies:
 
@@ -8,8 +8,15 @@ bun install
 
 To run:
 
-```bash
-bun run index.ts
+Create a new file called `.env` in the root of the project with the following content:
+
+```shell
+TELEGRAM_BOT_TOKEN=youBotToken
+GROQ_API_KEY=yourApiKey
 ```
 
-This project was created using `bun init` in bun v1.1.36. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+```bash
+bun start
+```
+
+You may need to use a VPN to
