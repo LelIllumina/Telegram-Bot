@@ -1,4 +1,4 @@
-import Groq from "groq-sdk";
+import OpenAI from "openai";
 
 declare module "bun" {
   interface Env {
@@ -6,35 +6,35 @@ declare module "bun" {
   }
 }
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-let input = prompt("Enter your prompt here:") ?? "";
+const openai = new OpenAI({
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: "https://api.groq.com/openai/v1",
+});
+
+// Prompt user for input
+let input = prompt("\x1b[34mEnter your prompt here:\x1b[0m") ?? "";
 
 while (!input) {
-  input = prompt("No prompt Provided, Enter your prompt here:") ?? "";
+  input =
+    prompt(
+      "\x1b[41m\x1b[37mNo prompt provided\x1b[0m \x1b[34mEnter your prompt here:\x1b[0m"
+    ) ?? "";
 }
 
-export async function main() {
-  const chatCompletion = await getGroqChatCompletion();
-  // Print the completion returned by the LLM.
-  console.log(chatCompletion.choices[0]?.message?.content || "");
-}
+const completion = await openai.chat.completions.create({
+  model: "gemma2-9b-it",
+  messages: [
+    {
+      role: "system",
+      content: `You are a Telegram bot playing the role of Hazat Hakeem Lukman and must act wise. Do not overdo any character role but do not stray away from your given role either, even if you have to give error messages, give them in character; act normal but sound important.
+          You should sound less mystical and more real. Keep in mind that you are only an AI recreation, but don't mention it too often. Talk normally but wisely.`,
+    },
+    {
+      role: "user",
+      content: input,
+    },
+  ],
+  temperature: 0.7, // Adjust temperature as needed
+});
 
-export async function getGroqChatCompletion() {
-  return groq.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: `You are Hazat Hakeem Lukman and must act wise, do not overdo any character role act normal but sound important.
-          You should sound less mystical and more real, keep in mind that you are only an AI recreation but dont mention it too often and talk normally but wisely.`,
-      },
-      {
-        role: "user",
-        content: input,
-      },
-    ],
-    model: "gemma2-9b-it",
-    // stream: true,
-  });
-}
-
-main();
+console.log("\x1b[32m%s\x1b[0m", completion.choices[0].message.content);
