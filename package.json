@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
+    "@telegraf/session": "^2.0.0-beta.7",
     "@types/bun": "^1.1.14",
     "eslint": "^9.16.0",
     "globals": "^15.13.0",
