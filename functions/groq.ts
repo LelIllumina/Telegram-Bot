@@ -1,12 +1,6 @@
 import OpenAI from "openai";
 import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
-declare module "bun" {
-  interface Env {
-    GROQ_API_KEY: string;
-  }
-}
-
 const openai = new OpenAI({
   apiKey: process.env.GROQ_API_KEY,
   baseURL: "https://api.groq.com/openai/v1",
