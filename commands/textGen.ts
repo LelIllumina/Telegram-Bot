@@ -10,30 +10,28 @@ bot.on("text", async (ctx) => {
   if (ctx.message.text.startsWith("/")) {
     return;
   }
+  const prompt = ctx.message.text;
 
-  // console.log("Received message:", ctx.message.text);
+  // console.log("Received message:", prompt);
   if (!ctx.session) {
     ctx.session = {};
   }
 
   ctx.session.pastQueries ??= [];
   ctx.session.pastResponses ??= [];
+  const { pastQueries, pastResponses } = ctx.session;
 
   // Push new query to the pastQueries array
-  ctx.session.pastQueries.push(ctx.message.text);
+  pastQueries.push(prompt);
 
   // Process the user message and get AI response
-  const aiResponse = await sendPrompt(
-    ctx.message.text,
-    ctx.session.pastQueries,
-    ctx.session.pastResponses
-  );
+  const aiResponse = await sendPrompt(prompt, pastQueries, pastResponses);
 
   // Send AI response to user
   ctx.reply(aiResponse);
 
   // Push new AI response to pastResponses
-  ctx.session.pastResponses.push(aiResponse);
+  pastResponses.push(aiResponse);
 
   // Log session data for debugging
   // console.log(ctx.session.pastQueries, ctx.session.pastResponses);
