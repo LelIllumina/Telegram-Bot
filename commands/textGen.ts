@@ -7,18 +7,12 @@ bot.use(session());
 // Log incoming updates for debugging
 bot.on("text", async (ctx) => {
   // console.log("Received message:", ctx.message.text);
-  // Initialize session if not already initialized
   if (!ctx.session) {
     ctx.session = {};
   }
 
-  // Ensure pastQueries and pastResponses are arrays
-  if (!ctx.session.pastQueries) {
-    ctx.session.pastQueries = [];
-  }
-  if (!ctx.session.pastResponses) {
-    ctx.session.pastResponses = [];
-  }
+  ctx.session.pastQueries ??= [];
+  ctx.session.pastResponses ??= [];
 
   // Push new query to the pastQueries array
   ctx.session.pastQueries.push(ctx.message.text);
