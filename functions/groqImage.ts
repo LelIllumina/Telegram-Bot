@@ -11,7 +11,7 @@ export default async function genImage(input: string, ctx: Context) {
 
   const formdata = new FormData();
   formdata.append("prompt", input);
-  formdata.append("style_id", "26");
+  formdata.append("style_id", "39");
 
   try {
     const response = await fetch(url, {
