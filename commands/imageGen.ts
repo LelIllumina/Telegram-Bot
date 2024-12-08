@@ -1,5 +1,5 @@
 import { bot } from "../functions/botInit";
-import genImage from "../functions/groqImage";
+import genImage from "../functions/ImagineImage";
 
 bot.command("imagine", async (ctx) => {
   const prompt = ctx.message.text.split(" ").slice(1).join(" ");
