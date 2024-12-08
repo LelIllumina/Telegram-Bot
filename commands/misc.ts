@@ -4,9 +4,10 @@ import { bot } from "../functions/botInit";
 bot.command("help", (ctx) => {
   ctx.reply(`
     Available commands:
-    "text"  - AI Response
-    /help   - Show this help message
-    /info   - Get bot information
+    [prompt]          - AI Response
+    /imagine [prompt] - Generate an image based on the provided prompt
+    /help             - Show this help message
+    /info             - Get bot information
 `);
 });
 bot.command("info", (ctx) => {
