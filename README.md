@@ -10,7 +10,7 @@ bun install
 
 To run:
 
-Create a new file called `.env` in the root of the project with the following content:
+Create a new file or copy `.env.example` to a file called `.env` in the root of the project with the following content:
 
 ```shell
 TELEGRAM_BOT_TOKEN=youBotToken
