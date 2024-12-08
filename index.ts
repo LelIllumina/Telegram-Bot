@@ -3,10 +3,7 @@ import "./commands/textGen";
 
 // Start the bot
 bot
-  .launch()
-  .then(() => {
-    console.log("\x1b[34m%s\x1b[0m", "Bot started!");
-  })
+  .launch(() => console.log("\x1b[34m%s\x1b[0m", "Bot started!"))
   .catch((error) => {
     console.error(
       "\x1b[41mFailed to start the bot:\x1b[0m\n",
