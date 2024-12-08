@@ -1,11 +1,16 @@
 import { session } from "telegraf";
 import { bot } from "../functions/botInit";
 import sendPrompt from "../functions/groq";
+import "./misc.ts";
 
 // Add session middleware
 bot.use(session());
 // Log incoming updates for debugging
 bot.on("text", async (ctx) => {
+  if (ctx.message.text.startsWith("/")) {
+    return;
+  }
+
   // console.log("Received message:", ctx.message.text);
   if (!ctx.session) {
     ctx.session = {};
