@@ -27,7 +27,7 @@ bot.use(session());
 
 // Log incoming updates for debugging
 bot.on("text", async (ctx) => {
-  console.log("Received message:", ctx.message.text);
+  // console.log("Received message:", ctx.message.text);
 
   // Initialize session if not already initialized
   if (!ctx.session) {
@@ -59,7 +59,7 @@ bot.on("text", async (ctx) => {
   ctx.session.pastResponses.push(aiResponse);
 
   // Log session data for debugging
-  console.log(ctx.session.pastQueries, ctx.session.pastResponses);
+  // console.log(ctx.session.pastQueries, ctx.session.pastResponses);
 });
 
 // Start the bot
