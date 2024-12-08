@@ -6,10 +6,11 @@ declare module "bun" {
     TELEGRAM_BOT_TOKEN: string;
   }
 }
+
 // Initial session data structure
 interface BotSession {
-  pastResponses?: string[];
-  counter?: number; // Example of a counter
+  pastQueries?: string[]; // Array of past prompts from user
+  pastResponses?: string[]; // Array of past responses from bot
 }
 
 // Extend the Context type
@@ -28,22 +29,37 @@ bot.use(session());
 bot.on("text", async (ctx) => {
   console.log("Received message:", ctx.message.text);
 
-  console.log("Session before initialization:", ctx.session);
-
+  // Initialize session if not already initialized
   if (!ctx.session) {
     ctx.session = {};
   }
 
-  ctx.session.counter = ctx.session.counter || 0;
+  // Ensure pastQueries and pastResponses are arrays
+  if (!ctx.session.pastQueries) {
+    ctx.session.pastQueries = [];
+  }
+  if (!ctx.session.pastResponses) {
+    ctx.session.pastResponses = [];
+  }
+
+  // Push new query to the pastQueries array
+  ctx.session.pastQueries.push(ctx.message.text);
 
   // Process the user message and get AI response
-  const aiResponse = await sendPrompt(ctx.message.text);
+  const aiResponse = await sendPrompt(
+    ctx.message.text,
+    ctx.session.pastQueries,
+    ctx.session.pastResponses
+  );
 
-  ctx.session.counter++;
-
+  // Send AI response to user
   ctx.reply(aiResponse);
 
-  console.log("Session after update:", ctx.session);
+  // Push new AI response to pastResponses
+  ctx.session.pastResponses.push(aiResponse);
+
+  // Log session data for debugging
+  console.log(ctx.session.pastQueries, ctx.session.pastResponses);
 });
 
 // Start the bot

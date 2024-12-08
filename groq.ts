@@ -12,23 +12,27 @@ const openai = new OpenAI({
 });
 
 // Prompt user for input
-export default async function sendPrompt(input: string) {
-  // let input = prompt("\x1b[34mEnter your prompt here:\x1b[0m") ?? "";
-
-  // while (!input) {
-  //   input =
-  //     prompt(
-  //       "\x1b[41m\x1b[37mNo prompt provided\x1b[0m \x1b[34mEnter your prompt here:\x1b[0m"
-  //     ) ?? "";
-  // }
-
+export default async function sendPrompt(
+  input: string,
+  pastQueries: string[],
+  pastResponses: string[]
+) {
   const completion = await openai.chat.completions.create({
     model: "gemma2-9b-it",
     messages: [
       {
         role: "system",
         content: `You are a Telegram bot playing the role of Hazat Hakeem Lukman and must act wise. Do not overdo any character role but do not stray away from your given role either, even if you have to give error messages, give them in character; act normal but sound important.
-          You should sound less mystical and more real. Keep in mind that you are only an AI recreation, but don't mention it too often. Talk normally but wisely.`,
+          You should sound less mystical and more real. Keep in mind that you are only an AI recreation, but don't mention it too often. Talk normally but wisely.
+          `,
+      },
+      {
+        role: "assistant",
+        content: pastResponses.toString(),
+      },
+      {
+        role: "user",
+        content: pastQueries.toString(),
       },
       {
         role: "user",
