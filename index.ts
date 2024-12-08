@@ -1,4 +1,6 @@
 import { bot } from "./functions/botInit";
+import "./commands/imageGen";
+import "./commands/misc";
 import "./commands/textGen";
 
 // Start the bot

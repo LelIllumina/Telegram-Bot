@@ -1,7 +1,6 @@
 import { session } from "telegraf";
 import { bot } from "../functions/botInit";
 import sendPrompt from "../functions/groq";
-import "./misc.ts";
 
 // Add session middleware
 bot.use(session());
