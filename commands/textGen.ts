@@ -1,11 +1,12 @@
 import { session } from "telegraf";
+import { message } from "telegraf/filters";
 import { bot } from "../functions/botInit";
 import sendPrompt from "../functions/groq";
 
 // Add session middleware
 bot.use(session());
 // Log incoming updates for debugging
-bot.on("text", async (ctx) => {
+bot.on(message("text"), async (ctx) => {
   if (ctx.message.text.startsWith("/")) {
     return;
   }
