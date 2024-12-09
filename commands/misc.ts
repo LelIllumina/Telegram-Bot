@@ -4,7 +4,7 @@ import { bot } from "../functions/botInit";
 bot.command("help", (ctx) => {
   ctx.reply(`
     Available commands:
-    [prompt]          - AI Response
+    [prompt]          - AI Response, supports text and image
     /imagine [prompt] - Generate an image based on the provided prompt
     /help             - Show this help message
     /info             - Get bot information
