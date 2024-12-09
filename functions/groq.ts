@@ -17,8 +17,8 @@ export default async function sendPrompt(
       model: modelConfig[model],
       messages: [
         messageStore.systemMessage,
-        { role: "user", content: input },
         ...messageStore.sentMessages,
+        { role: "user", content: input },
       ] as ChatCompletionMessageParam[],
       temperature: 0.8,
       max_tokens: 2048,
