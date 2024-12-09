@@ -23,7 +23,7 @@ bot.on(message("text"), async (ctx) => {
   // Process the user message and get AI response
   let aiResponse: string;
   try {
-    aiResponse = await sendPrompt(prompt, "text");
+    aiResponse = await sendPrompt("text", prompt);
   } catch (error) {
     console.error("Error generating AI response:", error);
     return ctx.reply(

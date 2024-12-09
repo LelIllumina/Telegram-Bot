@@ -9,8 +9,8 @@ const openai = new OpenAI({
 
 // Prompt user for input
 export default async function sendPrompt(
-  input: string,
-  model: keyof typeof modelConfig
+  model: keyof typeof modelConfig,
+  input: string
 ) {
   try {
     const completion = await openai.chat.completions.create({
