@@ -8,11 +8,18 @@ declare module "bun" {
   }
 }
 
-interface BotSession {
-  pastQueries?: string[]; // Array of past prompts from user
-  pastResponses?: string[]; // Array of past responses from bot
-}
 // Extend the Context type
 export interface BotContext extends Context {
   session: BotSession;
+}
+
+// Message type
+export interface Message {
+  role: string;
+  content: string;
+}
+
+export interface MessageStore {
+  systemMessage: Message;
+  sentMessages: Message[];
 }

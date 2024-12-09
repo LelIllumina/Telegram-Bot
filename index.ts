@@ -2,6 +2,7 @@ import { bot } from "./functions/botInit";
 import "./commands/imageGen";
 import "./commands/misc";
 import "./commands/textGen";
+import "./commands/vision";
 
 // Start the bot
 bot

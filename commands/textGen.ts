@@ -2,6 +2,7 @@ import { session } from "telegraf";
 import { message } from "telegraf/filters";
 import { bot } from "../functions/botInit";
 import sendPrompt from "../functions/groq";
+import { messageStore } from "../functions/prompt";
 
 // Add session middleware
 bot.use(session());
@@ -10,29 +11,38 @@ bot.on(message("text"), async (ctx) => {
   if (ctx.message.text.startsWith("/")) {
     return;
   }
+
   const prompt = ctx.message.text;
 
-  // console.log("Received message:", prompt);
   if (!ctx.session) {
     ctx.session = {};
   }
 
-  ctx.session.pastQueries ??= [];
-  ctx.session.pastResponses ??= [];
-  const { pastQueries, pastResponses } = ctx.session;
-
-  // Push new query to the pastQueries array
-  pastQueries.push(prompt);
+  messageStore.sentMessages.push({ role: "user", content: prompt });
 
   // Process the user message and get AI response
-  const aiResponse = await sendPrompt(prompt, pastQueries, pastResponses);
+  let aiResponse: string;
+  try {
+    aiResponse = await sendPrompt(prompt, "text");
+  } catch (error) {
+    console.error("Error generating AI response:", error);
+    return ctx.reply(
+      "Sorry, something went wrong while generating a response."
+    );
+  }
 
-  // Send AI response to user
-  ctx.reply(aiResponse);
+  // Validate AI response
+  if (!aiResponse || aiResponse.trim() === "") {
+    console.error("AI response is empty or invalid:", aiResponse);
+    return ctx.reply(
+      "Sorry, I couldn't generate a meaningful response. Please try again."
+    );
+  }
 
-  // Push new AI response to pastResponses
-  pastResponses.push(aiResponse);
+  // Send the valid AI response
+  await ctx.reply(aiResponse);
 
-  // Log session data for debugging
-  // console.log(ctx.session.pastQueries, ctx.session.pastResponses);
+  // Store the user's message and AI response for future reference
+  messageStore.sentMessages.push({ role: "assistant", content: aiResponse });
+  console.log(messageStore.sentMessages);
 });
