@@ -1,7 +1,6 @@
 import { message } from "telegraf/filters";
 import { bot } from "../functions/botInit";
 import viewImage from "../functions/groqVision";
-import type { Message } from "../types";
 
 bot.on(message("photo"), async (ctx) => {
   try {

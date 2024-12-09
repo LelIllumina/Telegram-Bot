@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
-import type { Message } from "../types";
 import { messageStore, modelConfig } from "./prompt";
 
 const openai = new OpenAI({
