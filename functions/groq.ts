@@ -17,7 +17,7 @@ export default async function sendPrompt(
       model: modelConfig[model],
       messages: [
         messageStore.systemMessage,
-        ...messageStore.sentMessages,
+        ...messageStore.sentMessages.slice(-10),
         { role: "user", content: input },
       ] as ChatCompletionMessageParam[],
       temperature: 0.8,
@@ -32,7 +32,7 @@ export default async function sendPrompt(
     console.log("Messages sent to model:", [
       messageStore.systemMessage,
       // { role: "user", content: input },
-      ...messageStore.sentMessages,
+      ...messageStore.sentMessages.slice(-10),
     ]);
     return output.trim() || "Output Failed";
   } catch (error) {

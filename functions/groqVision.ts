@@ -16,7 +16,7 @@ export default async function viewImage(
     const completion = await openai.chat.completions.create({
       model: modelConfig[model],
       messages: [
-        ...messageStore.sentMessages,
+        ...messageStore.sentMessages.slice(-10),
         input,
       ] as ChatCompletionMessageParam[],
       temperature: 0.8,
@@ -27,7 +27,7 @@ export default async function viewImage(
 
     console.log("Messages sent to model:", [
       messageStore.systemMessage,
-      ...messageStore.sentMessages,
+      ...messageStore.sentMessages.slice(-10),
     ]);
     return output.trim() || "Output Failed";
   } catch (error) {
