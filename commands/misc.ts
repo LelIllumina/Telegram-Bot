@@ -13,9 +13,8 @@ bot.command("help", (ctx) => {
 bot.command("info", (ctx) => {
   ctx.reply(`
     Bot Information:
-    AI Persona of Luqman Al-Hakim
+    AI Bot for The Architect
     Version: 1.0.0
-    Created by: Bilal Ahmed
-    Powered by Telegraf and GroqCloud AI
+    Powered by Geolt
     `);
 });

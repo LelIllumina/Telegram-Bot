@@ -1,6 +1,6 @@
 # AI Hakeem Lukman Telegraf Bot
 
-This bot is built on bun and will likely not work with node, expecially without modifications.
+This bot is built on bun and will need it to work.
 
 ## To install dependencies
 
