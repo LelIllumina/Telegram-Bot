@@ -5,6 +5,7 @@ declare module "bun" {
     TELEGRAM_BOT_TOKEN: string;
     GROQ_API_KEY: string;
     IMAGINE_API_KEY: string;
+    OPENAI_API_KEY: string;
   }
 }
 

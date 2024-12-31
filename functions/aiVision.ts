@@ -3,8 +3,7 @@ import type { ChatCompletionMessageParam } from "openai/resources/chat/completio
 import { messageStore, modelConfig } from "./prompt";
 
 const openai = new OpenAI({
-  apiKey: process.env.GROQ_API_KEY,
-  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export default async function viewImage(

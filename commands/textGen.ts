@@ -1,7 +1,7 @@
 import { session } from "telegraf";
 import { message } from "telegraf/filters";
 import { bot } from "../functions/botInit";
-import sendPrompt from "../functions/groq";
+import sendPrompt from "../functions/aiResponse";
 import { messageStore } from "../functions/prompt";
 
 // Add session middleware
